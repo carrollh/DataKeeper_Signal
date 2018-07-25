@@ -78,7 +78,7 @@ if( -Not $AdminUsername -OR -Not $AdminPassword ) {
 # create a new sceduled task if it does not already exist
 if( -Not (Get-ScheduledTask "DataKeeper Signal") ) {
 	# new scheduled task properties to run the ps script every 5 minutes after boot
-	$action = New-ScheduledTaskAction -Execute "Powershell.exe" -Argument "'$path\Send-Signal.ps1' -PyModule '$path\dist\report_event.exe' -EnvironmentID $EnvironmentID"
+	$action = New-ScheduledTaskAction -Execute "Powershell.exe" -Argument ".\Send-Signal.ps1 -PyModule .\dist\report_event.exe -EnvironmentID $EnvironmentID" -WorkingDirectory "$path"
 
 	$triggers = [System.Collections.ArrayList]@()
 
